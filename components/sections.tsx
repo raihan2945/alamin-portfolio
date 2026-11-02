@@ -1,7 +1,7 @@
 import Image, { type StaticImageData } from "next/image";
 import { experience, profile, projects, services, socials, stack, stats } from "@/lib/data";
 import { ContactForm, CopyEmail } from "./contact-widgets";
-import { ArrowUpRight, GitHub, Mail, MapPin, serviceIcons, socialIcons } from "./icons";
+import { ArrowUpRight, GitHub, Mail, MapPin, Phone, serviceIcons, socialIcons, WhatsApp } from "./icons";
 import { delay, SectionHeading, Tag } from "./section";
 
 const container = "mx-auto max-w-6xl px-4 sm:px-6";
@@ -334,6 +334,30 @@ export function Contact() {
                 <ArrowUpRight className="ml-auto size-5 shrink-0 text-muted transition group-hover:text-fg" />
               </a>
               <CopyEmail email={profile.email} />
+            </div>
+
+            <div className="mt-3 flex flex-col gap-3 sm:flex-row">
+              <a
+                href={`tel:${profile.phone.replace(/[^\d+]/g, "")}`}
+                className="group flex min-w-0 flex-1 items-center gap-3 rounded-full border border-line-strong bg-bg/60 py-2 pr-5 pl-2 transition hover:border-accent-ink"
+              >
+                <span className="grid size-10 shrink-0 place-items-center rounded-full border border-line-strong">
+                  <Phone className="size-5" />
+                </span>
+                <span className="truncate font-medium">{profile.phone}</span>
+              </a>
+              <a
+                href={`https://wa.me/${profile.whatsapp}`}
+                target="_blank"
+                rel="noreferrer"
+                className="group flex min-w-0 flex-1 items-center gap-3 rounded-full border border-line-strong bg-bg/60 py-2 pr-5 pl-2 transition hover:border-accent-ink"
+              >
+                <span className="grid size-10 shrink-0 place-items-center rounded-full border border-line-strong">
+                  <WhatsApp className="size-5" />
+                </span>
+                <span className="truncate font-medium">WhatsApp</span>
+                <ArrowUpRight className="ml-auto size-5 shrink-0 text-muted transition group-hover:text-fg" />
+              </a>
             </div>
 
             <div className="mt-auto flex flex-wrap items-center gap-x-6 gap-y-4 pt-10">

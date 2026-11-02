@@ -17,7 +17,9 @@ export const profile = {
     "I design and build fast, scalable web products and AI-powered experiences — from the database and the model all the way to the pixel.",
   // Static import from app/asset — set to null to show the initials placeholder.
   photo: alaminPhoto as StaticImageData | null,
-  email: "hello@example.com", // placeholder
+  email: "alamin.wd.bd@gmail.com",
+  phone: "+880 1311-932840",
+  whatsapp: "8801311932840", // digits only, used for wa.me links
   location: "Remote · Open worldwide",
   available: true,
   resume: null as string | null, // e.g. "/resume.pdf"
@@ -27,6 +29,7 @@ export const socials = [
   { label: "GitHub", href: "https://github.com/", icon: "github" }, // placeholder
   { label: "LinkedIn", href: "https://www.linkedin.com/", icon: "linkedin" }, // placeholder
   { label: "X", href: "https://x.com/", icon: "x" }, // placeholder
+  { label: "WhatsApp", href: `https://wa.me/${profile.whatsapp}`, icon: "whatsapp" },
 ] as const;
 
 export const roles = [
