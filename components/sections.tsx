@@ -322,49 +322,65 @@ export function Contact() {
               Have a project, an AI idea or a role in mind? I usually reply within a day.
             </p>
 
-            <div className="mt-10 flex items-center gap-3">
-              <a
-                href={`mailto:${profile.email}`}
-                className="group flex min-w-0 flex-1 items-center gap-3 rounded-full border border-line-strong bg-bg/60 py-2 pr-5 pl-2 transition hover:border-accent-ink"
-              >
-                <span className="grid size-10 shrink-0 place-items-center rounded-full bg-accent text-on-accent">
-                  <Mail className="size-5" />
-                </span>
-                <span className="truncate font-medium sm:text-lg">{profile.email}</span>
-                <ArrowUpRight className="ml-auto size-5 shrink-0 text-muted transition group-hover:text-fg" />
-              </a>
-              <CopyEmail email={profile.email} />
-            </div>
-
-            <div className="mt-3 flex flex-col gap-3 sm:flex-row">
-              <a
-                href={`tel:${profile.phone.replace(/[^\d+]/g, "")}`}
-                className="group flex min-w-0 flex-1 items-center gap-3 rounded-full border border-line-strong bg-bg/60 py-2 pr-5 pl-2 transition hover:border-accent-ink"
-              >
-                <span className="grid size-10 shrink-0 place-items-center rounded-full border border-line-strong">
-                  <Phone className="size-5" />
-                </span>
-                <span className="truncate font-medium">{profile.phone}</span>
-              </a>
-              <a
-                href={`https://wa.me/${profile.whatsapp}`}
-                target="_blank"
-                rel="noreferrer"
-                className="group flex min-w-0 flex-1 items-center gap-3 rounded-full border border-line-strong bg-bg/60 py-2 pr-5 pl-2 transition hover:border-accent-ink"
-              >
-                <span className="grid size-10 shrink-0 place-items-center rounded-full border border-line-strong">
-                  <WhatsApp className="size-5" />
-                </span>
-                <span className="truncate font-medium">WhatsApp</span>
-                <ArrowUpRight className="ml-auto size-5 shrink-0 text-muted transition group-hover:text-fg" />
-              </a>
+            <div className="mt-10">
+              <h3 className="mb-4 font-mono text-xs uppercase tracking-[0.2em] text-muted">Contact info</h3>
+              <ul className="divide-y divide-line overflow-hidden rounded-3xl border border-line-strong bg-bg/60">
+                {[
+                  {
+                    label: "Email",
+                    value: profile.email,
+                    href: `mailto:${profile.email}`,
+                    icon: Mail,
+                    extra: <CopyEmail email={profile.email} />,
+                  },
+                  {
+                    label: "Phone",
+                    value: profile.phone,
+                    href: `tel:${profile.phone.replace(/[^\d+]/g, "")}`,
+                    icon: Phone,
+                  },
+                  {
+                    label: "WhatsApp",
+                    value: profile.phone,
+                    href: `https://wa.me/${profile.whatsapp}`,
+                    icon: WhatsApp,
+                    external: true,
+                  },
+                  { label: "Location", value: profile.location, icon: MapPin },
+                ].map(({ label, value, href, icon: Icon, extra, external }) => {
+                  const body = (
+                    <>
+                      <span className="grid size-10 shrink-0 place-items-center rounded-full border border-line-strong text-accent-ink">
+                        <Icon className="size-5" />
+                      </span>
+                      <span className="flex min-w-0 flex-col">
+                        <span className="font-mono text-[11px] uppercase tracking-wider text-muted">{label}</span>
+                        <span className="truncate font-medium">{value}</span>
+                      </span>
+                    </>
+                  );
+                  return (
+                    <li key={label} className="flex items-center gap-2 pr-2">
+                      {href ? (
+                        <a
+                          href={href}
+                          {...(external ? { target: "_blank", rel: "noreferrer" } : {})}
+                          className="group flex min-w-0 flex-1 items-center gap-3 px-4 py-3 transition hover:bg-bg"
+                        >
+                          {body}
+                          <ArrowUpRight className="ml-auto size-4 shrink-0 text-muted transition group-hover:text-fg" />
+                        </a>
+                      ) : (
+                        <div className="flex min-w-0 flex-1 items-center gap-3 px-4 py-3">{body}</div>
+                      )}
+                      {extra}
+                    </li>
+                  );
+                })}
+              </ul>
             </div>
 
             <div className="mt-auto flex flex-wrap items-center gap-x-6 gap-y-4 pt-10">
-              <span className="flex items-center gap-2 text-sm text-muted">
-                <MapPin className="size-4" />
-                {profile.location}
-              </span>
               <div className="flex gap-2">
                 {socials.map((s) => {
                   const Icon = socialIcons[s.icon];
